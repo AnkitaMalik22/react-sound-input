@@ -1,6 +1,17 @@
 :root {
   --input--border: #d9d9d9;
-  --input--label: ;
+
+}
+h3{
+  margin: 0;
+}
+
+.heading{
+  width: 35%;
+  color: #8f8d8d;
+  font-weight: 700;
+  margin: 0;
+
 }
 
 .form-container {
@@ -21,7 +32,7 @@
 
 .dotted-line {
   width: 79%;
-  margin-left: 6.6rem;
+  margin-left: 15%;
   border-bottom: 5px dotted var(--input--border);
   margin-top: 1.2rem;
 }
@@ -80,7 +91,7 @@ button {
   color: #ffff;
   width: 79%;
   padding: 0.7rem;
-  margin-left: 6.6rem;
+  margin-left: 15%;
   border: 1px solid transparent;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -109,10 +120,10 @@ button:hover {
   font-weight: 500;
   font-size: 0.6rem;
   border-radius: 0.5rem;
-  position: absolute;
-  top: 10%;
-  right: 27%;
-  padding: 0.5rem 0.7rem;
+  position: relative;
+  top: 1%;
+  right: -18%;
+  padding: 0.3rem 0.7rem;
 }
 .error {
   position: relative;
@@ -120,4 +131,49 @@ button:hover {
   color: red;
   font-size: 0.8rem;
   left: 6rem;
+}
+.mic-btn{
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  width: 0;
+
+}
+
+
+/* RESPONSIVE  */ 
+
+@media screen and (max-width :768px){
+  .heading{
+    
+      width: 79%;
+     
+    
+  }
+  .message{
+    position: relative;
+    top: 1%;
+    right: -14%;
+  }
+  .form-container-inner{
+    width: 90%;
+  }
+  .form-label{
+    width: 40%;
+    top: 2.4rem;
+    margin: -3rem;
+    left: 5.5rem;
+  }
+  .form-field{
+    margin-left: 1rem;
+  }
+  button{
+    padding:0.5rem;
+  }
+  .dotted-line,button{
+    margin-left:6%;
+    width: 85%;
+
+  }
 }
