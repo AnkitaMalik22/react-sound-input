@@ -1,0 +1,123 @@
+:root {
+  --input--border: #d9d9d9;
+  --input--label: ;
+}
+
+.form-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.form-container-inner {
+  width: 50%;
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.dotted-line {
+  width: 79%;
+  margin-left: 6.6rem;
+  border-bottom: 5px dotted var(--input--border);
+  margin-top: 1.2rem;
+}
+
+.form-field {
+  width: 100%;
+  margin-top: 1.2rem;
+  display: inline-flex;
+}
+
+.form-label {
+  width: 20%;
+  position: relative;
+  left: 7.5rem;
+  font-size: 0.7rem;
+  text-align: center;
+  top: -0.5rem;
+  background-color: #ffffff;
+  color: #8f8d8d;
+  height: 0.8rem;
+  font-weight: 500;
+}
+.form-input {
+  border: 0.16rem solid var(--input--border);
+  border-radius: 0.5rem;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  color: #343434;
+  font-weight: 500;
+}
+.form-input:focus {
+  border: 0.16rem solid #999999;
+  outline: none;
+}
+.form-input::placeholder {
+  color: var(--input--border);
+}
+
+.microphone {
+  position: relative;
+  background-color: #999999;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  right: 2rem;
+  cursor: pointer;
+}
+.microphone-active {
+  background-color: #00b207 !important;
+}
+
+button {
+  margin-top: 1rem;
+  background-color: #09216e;
+  font-weight: 700;
+  color: #ffff;
+  width: 79%;
+  padding: 0.7rem;
+  margin-left: 6.6rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+button:hover {
+  transform: scale(1.01);
+  color: #09216e;
+  background-color: var(--input--border);
+}
+
+.span-recording {
+  color: var(--input--border);
+  font-size: 0.7rem;
+  margin-bottom: 0.3rem;
+  position: relative;
+  top: -1rem;
+  width: 0;
+  left: -4rem;
+  font-weight: 500;
+}
+
+.message {
+  background-color: var(--input--border);
+  color: #8f8d8d;
+  font-weight: 500;
+  font-size: 0.6rem;
+  border-radius: 0.5rem;
+  position: absolute;
+  top: 10%;
+  right: 27%;
+  padding: 0.5rem 0.7rem;
+}
+.error {
+  position: relative;
+  font-weight: 500;
+  color: red;
+  font-size: 0.8rem;
+  left: 6rem;
+}
