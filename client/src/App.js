@@ -13,7 +13,7 @@ const App = () => {
     village: "",
     panNumber: "",
   });
-  const [formErrors ,setFormErrors] =useState({
+  const [formErrors, setFormErrors] = useState({
     firstNameErr: null,
     lastNameErr: null,
     stateErr: null,
@@ -21,18 +21,23 @@ const App = () => {
     villageErr: null,
     panNumberErr: null,
   });
-  const {firstNameErr,lastNameErr,stateErr,districtErr,villageErr,panNumberErr} =formErrors
+  const {
+    firstNameErr,
+    lastNameErr,
+    stateErr,
+    districtErr,
+    villageErr,
+    panNumberErr,
+  } = formErrors;
   const { firstName, lastName, state, district, village, panNumber } = formData;
-  
-  
-// ----------------------------------------- CHECK BROWSER SUPPORT -------------------------------------
+
+  // ----------------------------------------- CHECK BROWSER SUPPORT -------------------------------------
   const { listening, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
-
 
   // --------------------------------------- FUNCTIONS -------------------------------------------------
 
@@ -46,57 +51,54 @@ const App = () => {
   };
 
   // validate the form
-  const handleValidate =()=>{
+  const handleValidate = () => {
+    let errors = {};
 
-      let errors = {};
-    
-      if (!firstName) {
-        errors.firstNameErr = "First name is required";
-      }
-    
-      if (!lastName) {
-        errors.lastNameErr = "Last name is required";
-      }
-    
-      if (!state) {
-        errors.stateErr = "State is required";
-      }
-    
-      if (!district) {
-        errors.districtErr = "District is required";
-      }
-    
-      if (!village) {
-        errors.villageErr = "Village is required";
-      }
-    
-      if (!panNumber) {
-        errors.panNumberErr = "PAN Number is required";
-      }
-    
-      setFormErrors(errors);
-    
-  }
+    if (!firstName) {
+      errors.firstNameErr = "First name is required";
+    }
+
+    if (!lastName) {
+      errors.lastNameErr = "Last name is required";
+    }
+
+    if (!state) {
+      errors.stateErr = "State is required";
+    }
+
+    if (!district) {
+      errors.districtErr = "District is required";
+    }
+
+    if (!village) {
+      errors.villageErr = "Village is required";
+    }
+
+    if (!panNumber) {
+      errors.panNumberErr = "PAN Number is required";
+    }
+
+    setFormErrors(errors);
+  };
 
   // submit the form
   const handleSubmit = async () => {
-
     handleValidate();
-  
+
     try {
-      const response = await fetch('http://localhost:4000/save', {
-        method: 'POST',
+      const response = await fetch("http://localhost:4000/save", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
-      alert('Form data submitted successfully');
+
+      alert("Form data submitted successfully");
       setFormData({
         firstName: "",
         lastName: "",
@@ -104,14 +106,14 @@ const App = () => {
         district: "",
         village: "",
         panNumber: "",
-      })
+      });
     } catch (error) {
-      alert('Error submitting form data:', error.message);
+      alert("Error submitting form data:", error.message);
     }
   };
 
   //---------------------------------------------------------------------------------------------------
-  
+
   return (
     <div className="form-container">
       <h3>Address Details</h3>
@@ -134,8 +136,7 @@ const App = () => {
           handleChange={handleInputChange}
           error={lastNameErr}
         />
-       <span className="error">{lastNameErr}</span>
-
+        <span className="error">{lastNameErr}</span>
 
         <div className="dotted-line"></div>
         <FormField
@@ -146,7 +147,7 @@ const App = () => {
           handleChange={handleInputChange}
           error={stateErr}
         />
-                 <span className="error">{stateErr}</span>
+        <span className="error">{stateErr}</span>
         <FormField
           placeHolder="District"
           label="District"
@@ -154,10 +155,8 @@ const App = () => {
           value={district}
           handleChange={handleInputChange}
           error={districtErr}
-        
         />
-            <span className="error">{districtErr}</span>
-
+        <span className="error">{districtErr}</span>
 
         <FormField
           placeHolder="Village"
@@ -167,7 +166,7 @@ const App = () => {
           handleChange={handleInputChange}
           error={villageErr}
         />
-            <span className="error">{villageErr}</span>
+        <span className="error">{villageErr}</span>
         <div className="dotted-line"></div>
         <FormField
           placeHolder="PAN Number"
@@ -177,7 +176,7 @@ const App = () => {
           handleChange={handleInputChange}
           error={panNumberErr}
         />
-            <span className="error">{panNumberErr}</span>
+        <span className="error">{panNumberErr}</span>
         <button onClick={() => handleSubmit()}>Submit</button>
       </div>
     </div>

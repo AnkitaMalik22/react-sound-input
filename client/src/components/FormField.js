@@ -12,21 +12,27 @@ const FormField = ({
   handleChange,
   placeHolder,
   error,
-  setActiveFields,
-  activeFields,
-
-  handleSpeechRecognition,
-  listening
 }) => {
+  useEffect(() => {
+    console.log("error", error);
+  }, [error]);
 
-
-  // const [listening, setListening] = useState(false);
+  const [listening, setListening] = useState(false);
 
   const { transcript, resetTranscript } = useSpeechRecognition();
 
-  const handleSpeech=()=>{
-    handleSpeechRecognition({name,value : transcript})
-  }
+  const handleSpeechRecognition = (e) => {
+    if (listening) {
+      SpeechRecognition.stopListening();
+      handleChange({ target: { name, value: transcript } });
+    } else {
+      SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
+    }
+    setListening((prevListening) => !prevListening);
+
+    resetTranscript();
+    SpeechRecognition.abortListening();
+  };
 
   return (
     <div className="form-field">
@@ -44,16 +50,13 @@ const FormField = ({
         placeholder={placeHolder}
       />
       {listening && <span className="span-recording">Recording...</span>}
-      <button className="mic-btn" disabled={activeFields===name}>
-      
-        <img
-          src={microphoneSvg}
-          width={15}
-          className={`microphone ${listening ? "microphone-active" : ""}`}
-          onClick={handleSpeech}
-          alt="microphone"
-        />
-      </button>
+      <img
+        src={microphoneSvg}
+        width={15}
+        className={`microphone ${listening ? "microphone-active" : ""}`}
+        onClick={handleSpeechRecognition}
+        alt="microphone"
+      />
     </div>
   );
 };
