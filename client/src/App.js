@@ -29,6 +29,16 @@ const App = () => {
     villageErr: null,
     panNumberErr: null,
   });
+
+  const [activeField, setActiveField] = useState(null);
+
+  const handleToggleActive = (fieldName) => {
+    setActiveField((prevActiveField) =>
+      prevActiveField === fieldName ? null : fieldName
+    );
+  };
+
+
   const {
     firstNameErr,
     lastNameErr,
@@ -125,6 +135,8 @@ const App = () => {
     setAlert(true);
   };
 
+
+
   //---------------------------------------------------------------------------------------------------
 
   return (
@@ -145,6 +157,9 @@ const App = () => {
           value={firstName}
           handleChange={handleInputChange}
           error={firstNameErr}
+          active={activeField === "lastName"}
+          onClick={() => handleToggleActive("lastName")}
+          
         />
         <span className="error">{firstNameErr}</span> 
 
@@ -157,6 +172,8 @@ const App = () => {
           value={lastName}
           handleChange={handleInputChange}
           error={lastNameErr}
+          active={activeField === "lastName"}
+          onClick={() => handleToggleActive("lastName")}
         />
         <span className="error">{lastNameErr}</span>
 
@@ -171,6 +188,8 @@ const App = () => {
           value={state}
           handleChange={handleInputChange}
           error={stateErr}
+          active={activeField === "state"}
+          onClick={() => handleToggleActive("state")}
         />
         <span className="error">{stateErr}</span>
 
@@ -183,6 +202,8 @@ const App = () => {
           value={district}
           handleChange={handleInputChange}
           error={districtErr}
+          active={activeField === "district"}
+          onClick={() => handleToggleActive("district")}
         />
         <span className="error">{districtErr}</span>
 
@@ -195,6 +216,8 @@ const App = () => {
           value={village}
           handleChange={handleInputChange}
           error={villageErr}
+          active={activeField === "village"}
+          onClick={() => handleToggleActive("village")}
         />
         <span className="error">{villageErr}</span>
 
@@ -208,6 +231,8 @@ const App = () => {
           value={panNumber}
           handleChange={handleInputChange}
           error={panNumberErr}
+          active={activeField === "panNumber"}
+          onClick={() => handleToggleActive("panNumber")}
         />
         <span className="error">{panNumberErr}</span>
 
