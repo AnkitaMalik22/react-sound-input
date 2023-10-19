@@ -2,10 +2,16 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./db.js");
 const FormDataModel = require("./FormSchema.js");
+const path =require('path')
 
 const app = express();
 
 app.use(express.json());
+
+// Serving the static files from the "client" directory
+
+app.use(express.static(path.join(__dirname, "../client/build")));
+
 app.use(cors());
 
 // Connect to MongoDB
@@ -52,6 +58,14 @@ app.get("/data", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+// route to serve the React app's HTML file
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
+
+
 
 // Start the server
 const PORT = process.env.PORT || 4000;

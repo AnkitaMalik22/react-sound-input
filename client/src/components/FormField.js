@@ -13,6 +13,7 @@ const FormField = ({
   placeHolder,
   error,
 }) => {
+
   useEffect(() => {
     console.log("error", error);
   }, [error]);
@@ -21,18 +22,24 @@ const FormField = ({
 
   const { transcript, resetTranscript } = useSpeechRecognition();
 
+  // ---------------------------FUNCTION STARTS-------------------------------------
+
   const handleSpeechRecognition = (e) => {
+   
     if (listening) {
       SpeechRecognition.stopListening();
       handleChange({ target: { name, value: transcript } });
     } else {
       SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
     }
+    
     setListening((prevListening) => !prevListening);
 
     resetTranscript();
     SpeechRecognition.abortListening();
   };
+
+  // --------------------------------------------------------------------------------
 
   return (
     <div className="form-field">

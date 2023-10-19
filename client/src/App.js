@@ -3,8 +3,16 @@ import FormField from "./components/FormField";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import Alert from "./components/Alert";
+
+
+
 
 const App = () => {
+
+
+  const [alert,setAlert]=useState(false);
+  const[success,setSuccess]=useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -29,6 +37,8 @@ const App = () => {
     villageErr,
     panNumberErr,
   } = formErrors;
+
+
   const { firstName, lastName, state, district, village, panNumber } = formData;
 
   // ----------------------------------------- CHECK BROWSER SUPPORT -------------------------------------
@@ -51,6 +61,7 @@ const App = () => {
   };
 
   // validate the form
+
   const handleValidate = () => {
     let errors = {};
 
@@ -95,21 +106,23 @@ const App = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        setSuccess(false)
+      }else{
+        setSuccess(true)
+        setFormData({
+          firstName: "",
+          lastName: "",
+          state: "",
+          district: "",
+          village: "",
+          panNumber: "",
+        });
       }
-
-      alert("Form data submitted successfully");
-      setFormData({
-        firstName: "",
-        lastName: "",
-        state: "",
-        district: "",
-        village: "",
-        panNumber: "",
-      });
+     
     } catch (error) {
-      alert("Error submitting form data:", error.message);
+      setSuccess(false)
     }
+    setAlert(true);
   };
 
   //---------------------------------------------------------------------------------------------------
@@ -118,7 +131,13 @@ const App = () => {
     <div className="form-container">
       <h3>Address Details</h3>
       {!listening && <span className="message"> Tap to Start Recording</span>}
+
+{/* --------------------------------FORM STARTS----------------------------------------- */}
+
       <div className="form-container-inner">
+
+{/* ________________________ FIRST NAME __________________________  */}
+
         <FormField
           placeHolder="First Name"
           label="First Name"
@@ -127,7 +146,10 @@ const App = () => {
           handleChange={handleInputChange}
           error={firstNameErr}
         />
-        <span className="error">{firstNameErr}</span>
+        <span className="error">{firstNameErr}</span> 
+
+{/* ______________________ LAST NAME ____________________________  */}
+
         <FormField
           placeHolder="Last Name"
           label="Last Name"
@@ -139,6 +161,9 @@ const App = () => {
         <span className="error">{lastNameErr}</span>
 
         <div className="dotted-line"></div>
+
+{/* ______________________ STATE ____________________________  */}
+
         <FormField
           placeHolder="State"
           label="State"
@@ -148,6 +173,9 @@ const App = () => {
           error={stateErr}
         />
         <span className="error">{stateErr}</span>
+
+{/* ______________________DISTRICT ____________________________  */}    
+
         <FormField
           placeHolder="District"
           label="District"
@@ -158,6 +186,8 @@ const App = () => {
         />
         <span className="error">{districtErr}</span>
 
+{/* ______________________VILLAGE ____________________________  */}
+
         <FormField
           placeHolder="Village"
           label="Village"
@@ -167,7 +197,10 @@ const App = () => {
           error={villageErr}
         />
         <span className="error">{villageErr}</span>
+
         <div className="dotted-line"></div>
+
+{/* ______________________ PAN NUMBER ____________________________  */}        
         <FormField
           placeHolder="PAN Number"
           label="PAN Number"
@@ -177,8 +210,16 @@ const App = () => {
           error={panNumberErr}
         />
         <span className="error">{panNumberErr}</span>
+
+{/* ______________________ SUBMIT FORM BTN ____________________________  */}
+
         <button onClick={() => handleSubmit()}>Submit</button>
+
+
       </div>
+{/* -------------------------FORM ENDS-------------------------------- */}
+
+     {alert &&  <Alert success={success} setAlert={setAlert} />}
     </div>
   );
 };

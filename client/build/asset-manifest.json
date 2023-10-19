@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.47e554a8.css",
+    "main.js": "/static/js/main.47b9a22e.js",
+    "index.html": "/index.html",
+    "static/media/microphone.svg": "/static/media/microphone.c4fe41ba3968c7405942d81dada088ae.svg",
+    "main.47e554a8.css.map": "/static/css/main.47e554a8.css.map",
+    "main.47b9a22e.js.map": "/static/js/main.47b9a22e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.47e554a8.css",
+    "static/js/main.47b9a22e.js"
+  ]
+}
