@@ -1,19 +1,28 @@
 
 
-# REACT SOUND INPUT
+## REACT SOUND INPUT
 
-This is a React.js web application that allows users to fill out a form using voice input. The application includes seven fields for capturing information such as First Name, Last Name, State, District, Village, PAN Number, and Aadhaar Number. Users can use voice commands to input data into these fields.
+This is a React.js web application that allows users to fill out a form using voice input. 
+The application includes seven fields for capturing information such as First Name, Last Name, State, District, Village, PAN Number, and Aadhaar Number. 
+Users can use voice commands to input data into these fields.
 
-# Technologies Used
+ Deployment Link - https://react-sound-input.onrender.com/
+
+
+## Technologies Used
 
 **Frontend**: React.js
+
 **Voice Recognition:** : react-speech-recognition
+
 **Styling**: CSS 
+
 **Backend:** Node.js, Express.js
+
 **Database:** MongoDB
 
 
-# STEPS TO RUN THE PROJECT
+## Steps to Run Locally
 
  ### **Client Application:**
 
