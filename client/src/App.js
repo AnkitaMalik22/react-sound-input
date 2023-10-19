@@ -97,7 +97,7 @@ const App = () => {
     handleValidate();
 
     try {
-      const response = await fetch("http://localhost:4000/save", {
+      const response = await fetch("https://react-sound-input.onrender.com/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
