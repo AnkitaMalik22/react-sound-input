@@ -5,14 +5,9 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import Alert from "./components/Alert";
 
-
-
-
 const App = () => {
-
-
-  const [alert,setAlert]=useState(false);
-  const[success,setSuccess]=useState(false);
+  const [alert, setAlert] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -32,13 +27,6 @@ const App = () => {
 
   const [activeField, setActiveField] = useState(null);
 
-  const handleToggleActive = (fieldName) => {
-    setActiveField((prevActiveField) =>
-      prevActiveField === fieldName ? null : fieldName
-    );
-  };
-
-
   const {
     firstNameErr,
     lastNameErr,
@@ -47,7 +35,6 @@ const App = () => {
     villageErr,
     panNumberErr,
   } = formErrors;
-
 
   const { firstName, lastName, state, district, village, panNumber } = formData;
 
@@ -59,7 +46,17 @@ const App = () => {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
-  // --------------------------------------- FUNCTIONS -------------------------------------------------
+  // =========================================FUNCTIONS =======================================================
+
+  // --------------------------------FUNCTION - SET ACTIVE FIELD--------------------------------------------
+
+  const handleToggleActive = (fieldName) => {
+    setActiveField((prevActiveField) =>
+      prevActiveField === fieldName ? null : fieldName
+    );
+  };
+
+  // ---------------------------------FUNCTION - HANDLE INPUT CHANGE------------------------------------------
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -70,7 +67,7 @@ const App = () => {
     }));
   };
 
-  // validate the form
+  // -------------------------FUNCTION - HANDLING ERRORS AND INPUT VALIDATION -------------------------------
 
   const handleValidate = () => {
     let errors = {};
@@ -95,47 +92,57 @@ const App = () => {
       errors.villageErr = "Village is required";
     }
 
-    if (!panNumber) {
+    if (panNumber) {
+      let num = parseInt(panNumber, 10);
+      if (isNaN(num) | !Number.isFinite(num)) {
+        const containsLetters = /[a-zA-Z]/.test(panNumber);
+        if (containsLetters) {
+          errors.panNumberErr = "Please enter only numeric characters";
+        }
+      }
+    } else {
       errors.panNumberErr = "PAN Number is required";
     }
 
     setFormErrors(errors);
   };
 
-  // submit the form
+  // -------------------------------------- FUNCTION - FORM SUBMIT------------------------------------------------
   const handleSubmit = async () => {
     handleValidate();
-
+    const hasErrors = formErrors.panNumberErr === null;
     try {
-      const response = await fetch("https://react-sound-input.onrender.com/save", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      if (!hasErrors) {
+        const response = await fetch(
+          "https://react-sound-input.onrender.com/save",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
 
-      if (!response.ok) {
-        setSuccess(false)
-      }else{
-        setSuccess(true)
-        setFormData({
-          firstName: "",
-          lastName: "",
-          state: "",
-          district: "",
-          village: "",
-          panNumber: "",
-        });
+        if (!response.ok) {
+          setSuccess(false);
+        } else {
+          setSuccess(true);
+          setFormData({
+            firstName: "",
+            lastName: "",
+            state: "",
+            district: "",
+            village: "",
+            panNumber: "",
+          });
+        }
       }
-     
     } catch (error) {
-      setSuccess(false)
+      setSuccess(false);
     }
     setAlert(true);
   };
-
-
 
   //---------------------------------------------------------------------------------------------------
 
@@ -144,11 +151,10 @@ const App = () => {
       <h3>Address Details</h3>
       {!listening && <span className="message"> Tap to Start Recording</span>}
 
-{/* --------------------------------FORM STARTS----------------------------------------- */}
+      {/* --------------------------------FORM STARTS----------------------------------------- */}
 
       <div className="form-container-inner">
-
-{/* ________________________ FIRST NAME __________________________  */}
+        {/* ________________________ FIRST NAME __________________________  */}
 
         <FormField
           placeHolder="First Name"
@@ -159,11 +165,10 @@ const App = () => {
           error={firstNameErr}
           active={activeField === "lastName"}
           onClick={() => handleToggleActive("lastName")}
-          
         />
-        <span className="error">{firstNameErr}</span> 
+        <span className="error">{firstNameErr}</span>
 
-{/* ______________________ LAST NAME ____________________________  */}
+        {/* ______________________ LAST NAME ____________________________  */}
 
         <FormField
           placeHolder="Last Name"
@@ -179,7 +184,7 @@ const App = () => {
 
         <div className="dotted-line"></div>
 
-{/* ______________________ STATE ____________________________  */}
+        {/* ______________________ STATE ____________________________  */}
 
         <FormField
           placeHolder="State"
@@ -193,7 +198,7 @@ const App = () => {
         />
         <span className="error">{stateErr}</span>
 
-{/* ______________________DISTRICT ____________________________  */}    
+        {/* ______________________DISTRICT ____________________________  */}
 
         <FormField
           placeHolder="District"
@@ -207,7 +212,7 @@ const App = () => {
         />
         <span className="error">{districtErr}</span>
 
-{/* ______________________VILLAGE ____________________________  */}
+        {/* ______________________VILLAGE ____________________________  */}
 
         <FormField
           placeHolder="Village"
@@ -223,7 +228,7 @@ const App = () => {
 
         <div className="dotted-line"></div>
 
-{/* ______________________ PAN NUMBER ____________________________  */}        
+        {/* ______________________ PAN NUMBER ____________________________  */}
         <FormField
           placeHolder="PAN Number"
           label="PAN Number"
@@ -236,15 +241,13 @@ const App = () => {
         />
         <span className="error">{panNumberErr}</span>
 
-{/* ______________________ SUBMIT FORM BTN ____________________________  */}
+        {/* ______________________ SUBMIT FORM BTN ____________________________  */}
 
         <button onClick={() => handleSubmit()}>Submit</button>
-
-
       </div>
-{/* -------------------------FORM ENDS-------------------------------- */}
+      {/* -------------------------FORM ENDS-------------------------------- */}
 
-     {alert &&  <Alert success={success} setAlert={setAlert} />}
+      {alert && <Alert success={success} setAlert={setAlert} />}
     </div>
   );
 };

@@ -13,7 +13,7 @@ const FormField = ({
   placeHolder,
   error,
   active,
-  onClick, // renamed from handleActive for simplicity
+  onClick,
 }) => {
   const [listening, setListening] = useState(false);
 
@@ -21,30 +21,39 @@ const FormField = ({
 
   useEffect(() => {
     if (!active && listening) {
+      // remove the full stop from end
+      const text = `${value + transcript}`.replace(/\./g, "");
+
+      handleChange({ target: { name, value: text } });
+
       setListening(false);
     }
   }, [active, listening]);
 
+  // ----------------------------FUNCTION STARTS ----------------------------------
 
   const handleSpeechRecognition = () => {
-onClick()
+    onClick();
 
     if (listening) {
-     
       SpeechRecognition.stopListening();
-      handleChange({ target: { name, value: transcript } });
-    } else {
 
+      // remove the full stop from end
+      const text = `${value + transcript}`.replace(/\./g, "");
+
+      handleChange({ target: { name, value: text } });
+    } else {
       SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
     }
 
+    // Toggle the listening state
     setListening((prevListening) => !prevListening);
+
+    // Reset the transcript after processing
     resetTranscript();
-    SpeechRecognition.abortListening();
-  
   };
 
-  
+  // ----------------------------------------------------------------------------
 
   return (
     <div className="form-field">
@@ -53,24 +62,24 @@ onClick()
         <span style={{ color: "red" }}>*</span>
       </label>
       <input
-        type="text"
+        type={"text"}
         name={name}
-        value={listening ? transcript : value}
+        disabled={listening}
+        value={listening ? value + transcript : value}
         onChange={handleChange}
         className="form-input"
         style={{ borderColor: error && "red" }}
         placeholder={placeHolder}
       />
-      
-        {listening && <span className="span-recording">Recording...</span>}
-        <img
-          src={microphoneSvg}
-          width={15}
-          className={`microphone ${listening ? "microphone-active" : ""}`}
-          alt="microphone"
-          onClick={handleSpeechRecognition}
-        />
 
+      {listening && <span className="span-recording">Recording...</span>}
+      <img
+        src={microphoneSvg}
+        width={15}
+        className={`microphone ${listening ? "microphone-active" : ""}`}
+        alt="microphone"
+        onClick={handleSpeechRecognition}
+      />
     </div>
   );
 };

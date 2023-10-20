@@ -21,7 +21,6 @@ h3 {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
 }
 .form-container-inner {
   width: 50%;
@@ -45,7 +44,6 @@ h3 {
   width: 100%;
   margin-top: 1.2rem;
   display: inline-flex;
-
 }
 
 .form-label {
@@ -149,6 +147,9 @@ button:hover {
 
 .alert {
   position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
   width: 100%;
   height: 100vh;
   display: inline-flex;
@@ -159,7 +160,7 @@ button:hover {
 
 .alert-container {
   background-color: #ffff;
-  z-index: 5;
+
   border: 1px solid var(--input--border);
   border-radius: 0.6rem;
   padding: 2rem 4rem;

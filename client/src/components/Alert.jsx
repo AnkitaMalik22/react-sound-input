@@ -1,6 +1,7 @@
 import React from "react";
 
-const Alert = ({ setAlert, success }) => {
+const Alert = ({ setAlert, success,message }) => {
+
     const handleAlert=()=>{
         setAlert(false)
     }
@@ -14,7 +15,7 @@ const Alert = ({ setAlert, success }) => {
           <h2 className="alert-heading" style={{ color: "green" }}>
             SUCCESS!
           </h2>
-          <p className="alert-des">Form data submitted successfully</p>
+          <p className="alert-des">{message || "Form data submitted successfully"}</p>
           <div className="close" onClick={handleAlert}>close</div>
         </div>
       ) : (
@@ -23,7 +24,10 @@ const Alert = ({ setAlert, success }) => {
           <h2 className="alert-heading" style={{ color: "red" }}>
             ERROR!
           </h2>
-          <p className="alert-des">Error submitting form data</p>
+          <p className="alert-des">{
+            message || "Error submitting form data"
+}
+          </p>
           <div className="close" onClick={handleAlert}>retry</div>
         </div>
       )}
