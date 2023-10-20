@@ -23,8 +23,8 @@ const formDataSchema = new mongoose.Schema({
     required: true,
   },
   panNumber: {
-    type: String,
-    required: true,
+    type: Number,
+    required: true ,
   },
 });
 

@@ -34,6 +34,9 @@ app.post("/save", async (req, res) => {
     ) {
       return res.status(400).json({ message: "All fields are required" });
     }
+    if(isNaN(panNumber)){
+      return res.status(400).json({ message: "Please enter only numeric characters for pan card" });
+    }
 
     const newFormData = new FormDataModel(req.body);
 
